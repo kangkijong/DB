@@ -58,7 +58,8 @@ desc employee;
 select emp_id, emp_name, gender, hire_date, salary from employee;
 
 -- 부서테이블의 모든 정보 조회
-select * from department;
+select * 
+from department;
 
 /*********************************************************
 	AS : 컬럼명 별칭 부여
