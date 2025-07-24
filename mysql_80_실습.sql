@@ -773,7 +773,7 @@ select count(*) from employee, department, vacation;
 select count(*) 
 from employee cross join department cross join vacation;
 
--- inner join
+-- inner join : oracle
 select *	-- 20개
 from employee, department
 where employee.dept_id = department.dept_id
@@ -782,7 +782,7 @@ order by employee.emp_id;
 -- inner join : ansi
 select *
 from employee inner join department
-on employee.dept_id = department.dept_id
+		on employee.dept_id = department.dept_id
 order by emp_id;
 
 -- 사원테이블, 부서테이블, 본부테이블 inner join
@@ -793,7 +793,7 @@ order by e.emp_id;
             
 select * from department;	-- 전략기획의 unit_id가 null이기 때문에 1개 유실된 것임
 
--- innre join : ansi
+-- inner join : ansi
 select *
 from employee e inner join department d on e.dept_id = d.dept_id
 						  inner join unit u on d.unit_id = u.unit_id
