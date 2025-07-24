@@ -877,6 +877,70 @@ where 	e.dept_id = d.dept_id
 group by d.dept_id, d.dept_name, u.unit_name;
 
 
+-- outer join : inner join + 조인에서 제외된 row (테이블별 지정)
+-- 오라클 형식의 outer join은 사용 불가, ansi sql 형식 사용 가능!!
+-- SELECT [컬럼리스트] 
+-- FROM [테이블명1 테이블별칭] LEFT/RIGHT OUTER JOIN 테이블명2 [테이블 별칭], ...]
+-- 											ON [테이블명1.조인컬럼 = 테이블명2.조인컬럼]
+
+-- ** 오라클 형식 outer join 사용불가!!!
+-- select * from table1 t, table2 t2
+-- where t1.col = t2.col(+);
+
+-- 모든 부서의 부서아이디, 부서명, 본부명을 조회
+select d.dept_id, d.dept_name, ifnull(u.unit_name, '협의중') as unit_name
+from department d left outer join unit u
+-- where d.unit_id = u.unit_id(+);	-- 오라클 방식은 지원되지 않음을 확인 가능
+on d.unit_id = u.unit_id
+order by unit_name;
+
+-- 본부별, 부서의 휴가사용 일수 조회
+-- 부서의 누락없이 모두 출력
+select u.unit_name, d.dept_name, count(v.duration)
+from employee e left outer join vacation v
+		on e.emp_id = v.emp_id
+        right outer join department d
+        on e.dept_id = d.dept_id
+        left outer join unit u
+        on d.unit_id = u.unit_id
+group by u.unit_name, d.dept_name
+order by u.unit_name desc;
+
+-- 2017년부터 2018년도까지 입사한 사원들의 사원명, 입사일, 연봉, 부서명 조회해주세요
+-- 단, 퇴사한 사원들 제외
+-- 소속본부를 모두 조회
+select e.emp_name, e.hire_date, e.retire_date, e.salary, d.dept_name, u.unit_name
+from employee e inner join department d		-- 누락되는게 없을 때
+		on e.dept_id = d.dept_id
+        left outer join unit u								-- 누락되는게 있을 때
+        on d.unit_id = u.unit_id
+where 	left(e.hire_date, 4) between '2017' and '2018'
+			and e.retire_date is null;
+
+
+-- self join : 자기 자신의 테이블을 조인
+-- self join은 서브쿼리 형태로 실행하는 경우가 많음!! 
+-- select [컬럼리스트] from [테이블1], [테이블2] where [테이블1.컬럼명] = [테이블2.컬럼명]
+-- 사원테이블을 self join
+select e.emp_id, e.emp_name, m.emp_id, m.emp_name
+from employee e, employee m
+where e.emp_id = m.emp_id;
+
+select emp_id, emp_name
+from employee
+where emp_id = (select emp_id from employee where emp_name = '홍길동');
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
