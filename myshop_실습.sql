@@ -290,17 +290,6 @@ group by left(order_date, 7) with rollup;
 /**
 	테이블 조인 : 기본 SQL 방식, ANSI SQL
 */
--- Q01) customer 테이블 모든 행과 열을 조회하고 어떤 열들이 있는지, 데이터 형식은 어떻게 되는지 살펴보세요.
-desc customer;			-- customer_id, customer_name, gender, phone, email, city, birth_date, register_date, point
--- Q02) employee 테이블 모든 행과 열을 조회하고 어떤 열들이 있는지, 데이터 형식은 어떻게 되는지 살펴보세요.
-desc employee;		-- employee_id, employee_name, gender, phone, email, hire_date, retire_date
--- Q03) product 테이블 모든 행과 열을 조회하고 어떤 열들이 있는지, 데이터 형식은 어떻게 되는지 살펴보세요.
-desc product;			-- product_id, product_name, sub_category_id
--- Q04) order_header 테이블 모든 행과 열을 조회하고 어떤 열들이 있는지, 데이터 형식은 어떻게 되는지 살펴보세요.
-desc order_header;	-- order_id, customer_id, employee_id, order_date, sub_total, delivery_fee, total_due
--- Q05) order_detail 테이블 모든 행과 열을 조회하고 어떤 열들이 있는지, 데이터 형식은 어떻게 되는지 살펴보세요.
-desc order_detail;		-- order_id, drder_detail_id, product_id, order_qty, unit_price, discount, line_total
-
 -- Q01) 전체금액이 8,500,000 이상인 주문의 주문번호, 고객아이디, 사원번호, 주문일시, 전체금액을 조회하세요.
 select oh.order_id, c.customer_id, e.employee_id, oh.order_date, oh.total_due
 from order_header oh, customer c, employee e
