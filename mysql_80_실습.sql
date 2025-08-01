@@ -2051,3 +2051,10 @@ begin
 end $$
 delimiter ;
 /******************************************************************************************/    
+
+-- 2025-08-01 --
+
+-- Connection 확인
+SHOW STATUS LIKE 'threads_connexted';		-- 접속 커넥션 수
+SHOW PROCESSLIST;										-- 활성중인 커넥션
+SHOW VARIABLES LIKE 'max_connections';	-- 최대 접속 가능 커넥션 수
